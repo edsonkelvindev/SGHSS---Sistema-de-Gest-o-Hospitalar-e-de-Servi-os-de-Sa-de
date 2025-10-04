@@ -41,7 +41,7 @@ package.json          -> Dependências do projeto
 
 Clone o repositório:
 
-git clone <link-do-repo>
+git clone <https://github.com/edsonkelvindev/SGHSS---Sistema-de-Gest-o-Hospitalar-e-de-Servi-os-de-Sa-de.git>
 
 
 Inicie backend e banco:
