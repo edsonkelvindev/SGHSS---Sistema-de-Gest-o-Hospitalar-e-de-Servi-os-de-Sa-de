@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: sghss_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: sghss_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sghss_app
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+
+volumes:
+  postgres_data:
